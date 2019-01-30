@@ -15,7 +15,7 @@ import com.lti.training.maven.model.Product;
 import com.lti.training.maven.jdbc.DataAccessException;
 
 public class ProductDao {
-	public List<Product> fetchProducts(int from,int to) throws DataAccessException{
+	public List<Product> fetchProducts(int from,int to){
 		Connection conn = null;
 		PreparedStatement pstmt = null; //Precompiled SQL Comments
 		ResultSet rs = null;
@@ -37,7 +37,7 @@ public class ProductDao {
 			conn = DriverManager.getConnection(url,username,password);
 
 			//Selecting 3 records specifically within a range
-			String sql = "Select * from (Select p.*, rownum r from Product p) where r between ? and ?;"; 
+			String sql = "Select * from (Select p.*, rownum r from Product p) where r between ? and ?"; 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, from);
 			pstmt.setInt(2, to);
@@ -48,12 +48,13 @@ public class ProductDao {
 				Product prod = new Product();
 				prod.setId(rs.getInt("id"));
 				prod.setName(rs.getString("name"));
-				prod.setPrice(rs.getDouble("price"));
+				prod.setPrice(rs.getInt("price"));
 				prod.setQuantity(rs.getInt("quantity"));
+				
+				//Fetching the products using prod object
+				products.add(prod);
 			}
-			return products;
-		
-			
+			return products;			
 		}
 		catch(ClassNotFoundException | IOException | SQLException e) {
 			e.printStackTrace();

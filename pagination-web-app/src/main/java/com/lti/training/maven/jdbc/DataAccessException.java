@@ -1,4 +1,4 @@
-package com.maven.employee;
+package com.lti.training.maven.jdbc;
 
 public class DataAccessException extends Exception {
 

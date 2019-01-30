@@ -9,4 +9,14 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>ProductControllerServlet</display-name>
+    <servlet-name>ProductControllerServlet</servlet-name>
+    <servlet-class>com.lti.training.maven.servlet.pagination.ProductControllerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProductControllerServlet</servlet-name>
+    <url-pattern>/ProductControllerServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

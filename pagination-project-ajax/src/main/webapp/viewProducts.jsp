@@ -13,7 +13,7 @@
 	<body>
 		<div class="container-fluid">
 		<h2 class="h2-responsive text-center p-3">Displaying Data from LocalDB/ProductionDB using Servlet</h2>
-			<form method="post" action="ProductControllerServlet" class="form table-responsive" >
+			<form method="post" action="ProductControllerServletMain" class="form table-responsive" >
 				<table class="table-striped table">
 						<thead>
 							<tr>
@@ -48,7 +48,8 @@
 	</body>
 	<script>
 	function go(page){
-		window.location.href="ProductControllerServlet?go=" +page; // url of my controller(servlet) 
+		//window.location.href="ProductControllerServletMain?go=" +page; // url of my controller(servlet)
+		window.location.href="ProductControllerServlet?go=" +page; // url of my controller(servlet)
 	}
 	
 	</script>

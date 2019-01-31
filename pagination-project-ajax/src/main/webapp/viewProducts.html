@@ -6,17 +6,17 @@
 	    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	    <script type="text/javascript">
 	    	$("document").ready(function(){
-	    		url = 'ProductControllerServlet';
+	    		url = 'ProductControllerServletMain';
 	    		fetchProducts(url);
 	    		
 	    		$("#prev").click(function(){
-		    		url = 'ProductControllerServlet?go=prev';
+		    		url = 'ProductControllerServletMain?go=prev';
 		    		fetchProducts(url);
 		    		$("#tbl").children().remove();
 		    	})
 		    	
 		    	$("#next").click(function(){
-		    		url = 'ProductControllerServlet?go=next';
+		    		url = 'ProductControllerServletMain?go=next';
 		    		fetchProducts(url);
 		    		$("#tbl").children().remove();
 		    	})

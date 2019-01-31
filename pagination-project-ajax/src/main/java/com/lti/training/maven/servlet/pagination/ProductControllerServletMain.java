@@ -20,19 +20,30 @@ import com.lti.training.maven.jdbc.DataAccessException;
 import com.lti.training.maven.jdbc.dao.ProductDao;
 import com.lti.training.maven.model.Product;
 
-@WebServlet("/ProductControllerServlet")
-public class ProductControllerServlet extends HttpServlet {
+@WebServlet("/ProductControllerServletMain")
+public class ProductControllerServletMain extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		HttpSession session= request.getSession();
 		
 		int pageSize = 2;
+		Integer currentPosition = (Integer) session.getAttribute("cp"); // we are on the first page,displaying first 2 prods
 		
-		int currentPosition=1;
-		if(request.getParameter("cp")!=null) {
-			currentPosition=Integer.parseInt(request.getParameter("cp"));
+		if(currentPosition == null)
+			currentPosition = 1;
+		String go = request.getParameter("go");
+		if(go != null) {
+			if(go.equals("next"))
+				currentPosition += pageSize;
+			else if(go.equals("prev"))
+				currentPosition -= pageSize;
 		}
+		else 
+			currentPosition = 1;
 		
+		session.setAttribute("cp",currentPosition);
 		ProductDao dao = new ProductDao();
 	
 		List<Product> products = dao.fetchProducts(currentPosition, currentPosition + pageSize-1);
@@ -40,8 +51,8 @@ public class ProductControllerServlet extends HttpServlet {
 		ObjectMapper mapper = new ObjectMapper();
 		String productsJSON = mapper.writeValueAsString(products);
 		response.setContentType("application/json");
-		response.setHeader("Access-Control-Allow-Origin","http://localhost:4200"); //Server contacting the angular server and setting header to link
-		response.setHeader("Access-Control-Allow-Methods","GET"); //Setting the method as GET
+//		response.setHeader("Access-Control-Allow-Origin","http://localhost:4200"); //Server contacting the angular server and setting header to link
+//		response.setHeader("Access-Control-Allow-Methods","GET"); //Setting the method as GET
 		PrintWriter out = response.getWriter();
 		out.write(productsJSON);
 		
